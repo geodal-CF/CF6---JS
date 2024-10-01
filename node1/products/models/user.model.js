@@ -1,22 +1,23 @@
 const mongoose = require('mongoose');
+const uniqueValidator = require('mongoose-unique-validator');
 
 const Schema = mongoose.Schema;
 
-let addressSchema = new Schema ({
-    area: { type: String},
-    road: { type: String}
+let addresSchema = new Schema({
+    area: { type: String },
+    road: { type: String }
 }, {_id: false })
 
-let phoneSchema = new Schema ({
+let phoneSchema = new Schema({
     type: { type: String },
     number: { type: String }
 }, {_id: false})
 
-let productSchema = new Schema ({
+let productSchema = new Schema({
     product: { type: String },
     cost: { type: Number },
     quantity: { type: Number, required: true },
-    date: { type: Date, default: Date.now }
+    date: { type: Date, default: Date.now}
 })
 
 let userSchema = new Schema({
@@ -26,7 +27,7 @@ let userSchema = new Schema({
         max: 100,
         unique: true,
         trim: true,
-        lowercase: true,
+        lowercase: true
     },
     password: {
         type: String,
@@ -36,7 +37,7 @@ let userSchema = new Schema({
     name: {
         type: String,
         required: [true, 'Name is required field'],
-        max: 100
+        max: 100,
     },
     surname: {
         type: String,
@@ -55,13 +56,15 @@ let userSchema = new Schema({
             "Email address is not valid",
         ],
     },
-    address: addressSchema,
+    address: addresSchema,
     phone: { type: [phoneSchema], null: true },
-    products: { type: [productSchema], null: true }
+    products: { type: [productSchema], null: true}
 },
 {
     collection: 'users',
     timestamps: true
 });
+
+userSchema.plugin(uniqueValidator);
 
 module.exports = mongoose.model('User', userSchema)
