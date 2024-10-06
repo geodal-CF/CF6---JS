@@ -1,4 +1,3 @@
-
 const m2s = require('mongoose-to-swagger');
 const User = require('./models/user.model');
 
@@ -7,7 +6,7 @@ exports.options = {
     "info": {
         "version": "1.0.0",
         "title": "Products CRUD API",
-        "description": "Products and Users application",
+        "description": "Products and Users apllication",
         "constact": {
             "name": "Coding Factory",
             "url": "https://www.example.com",
@@ -35,7 +34,7 @@ exports.options = {
             "description": "Requests for user"
         },
         {
-            "name": "Users and Products",
+            "name":"Users and Products",
             "description": "Requests for user's products"
         }
     ],
@@ -260,6 +259,51 @@ exports.options = {
                 "responses":{
                     "200":{
                         "description":"New products to user"
+                    }
+                }
+            }
+        },
+        "/api/users-products/{username}/products/{id}":{
+            "patch":{
+                "tags": ["Users and Products"],
+                "description": "Update user's product",
+                "parameters": [
+                    {
+                        "name":"username",
+                        "in":"path",
+                        "required": true,
+                        "description": "Username ot user",
+                        "type":"string"
+                    },
+                    {
+                        "name":"id",
+                        "in":"path",
+                        "required":true,
+                        "description":"Id of product to update",
+                        "type":"string"
+                    }
+                ],
+                "requestBody":{
+                    "description":"Quantity of product to update",
+                    "content":{
+                        "application/json":{
+                            "schema": {
+                                "type": "object",
+                                "properties":{
+                                    "product":{
+                                        "type":"object",
+                                        "properties":{
+                                            "quantity": {"type":"number"}
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "responses":{
+                    "200":{
+                        "description":"Update product from user",
                     }
                 }
             }
