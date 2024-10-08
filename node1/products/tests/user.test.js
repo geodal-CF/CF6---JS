@@ -41,7 +41,7 @@ describe("Tests for /api/users requests", () =>{
         expect(res.body.data).toBeTruthy();
     })
 
-    it("POST /api/users request check for existed user", async() => {
+    it("POST /api/users request check for existing user", async() => {
         const res = await request(app).post("/api/users")
             .send({
                 username: "test4",
