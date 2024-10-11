@@ -41,7 +41,7 @@ describe("Tests for /api/users requests", () =>{
         expect(res.body.data).toBeTruthy();
     })
 
-    it("POST /api/users request check for existing user", async() => {
+    it("POST /api/users request check for existed user", async() => {
         const res = await request(app).post("/api/users")
             .send({
                 username: "test4",
@@ -85,14 +85,10 @@ describe("Tests for /api/users/{username} requests", () => {
                 }
             });
 
-        result = await helpers.findLastInsertedUser();    
-        
-        console.log("1>>>>",res.body.data);
-        console.log("2>>>>",result);
         expect(res.statusCode).toBe(200);
         expect(res.body.status).toBeTruthy();
         expect(res.body.data.name).toBe("new test4");
-        expect(res.body.data.surname).toBe("new test");
+        expect(res.body.data.surname).toBe("new test4");
     })
 
     it("DELETE /api/users/{username}", async()=>{
